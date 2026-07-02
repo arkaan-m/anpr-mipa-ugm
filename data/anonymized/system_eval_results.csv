@@ -1,0 +1,31 @@
+image,gt_plate,gt_authorized,pred_plate,pred_status,ocr_conf,match_type,flag,correct,far_event,frr_event
+IMG_2720.JPG,B #### WZX,False,B #### HZX,UNAUTHORIZED,0.934,NONE,,True,False,False
+IMG_5704.JPG,AB #### LS,False,AB #### LS,UNCERTAIN,0.699,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5705.JPG,F #### FBQ,False,#### FBQ,OCR_FAILED,0.691,,,False,False,False
+IMG_5709.JPG,AB #### IW,False,AB #### IH,UNCERTAIN,0.342,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5710.JPG,AB #### IW,False,AB ### IIH,UNCERTAIN,0.395,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5743.JPG,AB #### KR,False,AB #### KRL,UNCERTAIN,0.7,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5745.JPG,B #### PEP,False,B #### PEP,UNAUTHORIZED,0.832,NONE,,True,False,False
+IMG_5748.JPG,AB #### YR,False,AB #### YR,UNCERTAIN,0.574,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5767.JPG,AB #### IX,False,AB #### IX,UNCERTAIN,0.405,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5926.JPG,AB #### IX,False,AB #### IX,UNAUTHORIZED,0.979,NONE,,True,False,False
+IMG_5946.JPG,G #### PE,False,G #### PE,UNAUTHORIZED,0.999,NONE,,True,False,False
+IMG_5957.JPG,K #### UG,False,K #### UC,UNCERTAIN,0.675,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5958.JPG,K #### UG,False,K #### UG,UNAUTHORIZED,0.942,NONE,,True,False,False
+IMG_5961.JPG,AA #### EB,False,AA #### EB,UNCERTAIN,0.312,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5964.JPG,AA #### EB,False,AA #### EB,UNAUTHORIZED,0.919,NONE,,True,False,False
+IMG_5974.JPG,AB #### PU,False,AB #### PU,UNAUTHORIZED,0.993,NONE,,True,False,False
+IMG_5989.JPG,G #### PE,False,BB # I,UNCERTAIN,0.453,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_5991.JPG,G #### PE,False,BB # I,UNCERTAIN,0.073,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_6077.JPG,B #### KFG,False,B #### KFG,UNCERTAIN,0.622,NONE,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_6081.JPG,AB #### IZ,False,AB #### IZ,UNAUTHORIZED,0.959,NONE,,True,False,False
+IMG_6091.JPG,AB #### FP,False,AB ####,UNAUTHORIZED,0.938,NONE,,True,False,False
+IMG_6113.JPG,AB #### XB,False,AB #### XB,UNAUTHORIZED,0.949,NONE,,True,False,False
+IMG_6137.JPG,AB #### XB,False,B ### HQL,UNAUTHORIZED,0.78,NONE,,True,False,False
+IMG_6144.JPG,AB #### PZ,False,AB #### PZ,UNAUTHORIZED,0.81,NONE,,True,False,False
+IMG_6167.JPG,B #### KFG,False,FB #### KFG,OCR_FAILED,0.285,,,False,False,False
+IMG_6180.JPG,AB #### XT,True,AB #### XT,UNCERTAIN,0.215,EXACT,LOW_OCR_CONFIDENCE - verify manually,True,False,False
+IMG_6189.JPG,AB #### XT,True,AB ### XT,AUTHORIZED,0.936,FUZZY,FUZZY_MATCH - verify manually,True,False,False
+IMG_6192.JPG,AB #### XT,True,AB #### XT,AUTHORIZED,0.773,FUZZY,FUZZY_MATCH - verify manually,True,False,False
+IMG_6194.JPG,AB #### XT,True,AB #### XT,AUTHORIZED,0.835,EXACT,,True,False,False
+IMG_6195.JPG,AB #### XT,True,AB #### XT,AUTHORIZED,0.722,EXACT,,True,False,False

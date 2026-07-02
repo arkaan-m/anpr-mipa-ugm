@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Admin — ANPR MIPA UGM{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Admin panel</h1>
+  <p class="muted">Manage authorized plates and view the transaction history.</p>
+  <div>
+    <a class="btn" href="{{ url_for('admin_history') }}">Transaction history →</a>
+    <a class="btn ghost" href="{{ url_for('admin_logout') }}">Sign out</a>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Add a plate</h2>
+  <form action="{{ url_for('admin_plates') }}" method="post" class="grid-form">
+    <input type="hidden" name="action" value="add">
+    <label>Plate number<input name="plate_number" placeholder="AB 1234 CD" required></label>
+    <label>Vehicle type
+      <select name="vehicle_type">
+        <option value="car">car</option>
+        <option value="motorcycle">motorcycle</option>
+      </select>
+    </label>
+    <label>Owner category
+      <select name="owner_category">
+        <option value="student">student</option>
+        <option value="staff">staff</option>
+        <option value="faculty">faculty</option>
+      </select>
+    </label>
+    <label>Owner name<input name="owner_name" placeholder="(optional)"></label>
+    <label>Registration date<input type="date" name="registration_date"></label>
+    <label>Expiry date<input type="date" name="expiry_date"></label>
+    <div class="full-row"><button type="submit" class="btn primary">Add plate</button></div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Authorized plates ({{ plates|length }})</h2>
+  <table class="data">
+    <thead>
+      <tr><th>Plate</th><th>Type</th><th>Category</th><th>Owner</th><th>Registered</th><th>Expires</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for p in plates %}
+      <tr>
+        <td><code>{{ p.plate_number }}</code></td>
+        <td>{{ p.vehicle_type }}</td>
+        <td>{{ p.owner_category }}</td>
+        <td>{{ p.owner_name or '' }}</td>
+        <td>{{ p.registration_date }}</td>
+        <td>{{ p.expiry_date or '' }}</td>
+        <td>
+          <form action="{{ url_for('admin_plates') }}" method="post" onsubmit="return confirm('Remove {{ p.plate_number }}?')">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="id" value="{{ p.id }}">
+            <button class="btn danger small">Remove</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

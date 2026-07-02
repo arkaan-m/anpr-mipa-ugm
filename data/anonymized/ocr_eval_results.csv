@@ -1,0 +1,31 @@
+image,gt,easy_text,easy_conf,easy_valid,easy_cla,easy_pla,tess_text,tess_conf,tess_valid,tess_cla,tess_pla,chosen_engine,chosen_text,chosen_cla,chosen_pla
+IMG_2720.JPG,B #### WZX,B #### HZX,0.9344064544229062,True,0.9,0,,0.0,False,0.0,0,easyocr,B #### HZX,0.9,0
+IMG_5704.JPG,AB #### LS,AB #### LS,0.6991414598253278,True,0.9,0,AB####LS,0.0,False,0.8,0,easyocr,AB #### LS,0.9,0
+IMG_5705.JPG,F #### FBQ,#### FBQ,0.6908837486780478,False,0.8,0,,0.0,False,0.0,0,OCR_FAILED,#### FBQ,0.8,0
+IMG_5709.JPG,AB #### IW,AB #### IH,0.3424475953779722,True,0.9,0,,0.0,False,0.0,0,easyocr,AB #### IH,0.9,0
+IMG_5710.JPG,AB #### IW,AB#### IH,0.3950616443071768,False,0.8,0,,0.0,False,0.0,0,easyocr+sub,AB ### IIH,0.7,0
+IMG_5743.JPG,AB #### KR,AB #### KRL,0.6996883959876289,True,0.8,0,,0.0,False,0.0,0,easyocr,AB #### KRL,0.8,0
+IMG_5745.JPG,B #### PEP,B #### PEP,0.831721600181498,True,1.0,1,,0.0,False,0.0,0,easyocr,B #### PEP,1.0,1
+IMG_5748.JPG,AB #### YR,AB #### YR,0.5735748918065936,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### YR,1.0,1
+IMG_5767.JPG,AB #### IX,AB #### IX,0.40453460956710124,True,0.9,0,,0.0,False,0.0,0,easyocr,AB #### IX,0.9,0
+IMG_5926.JPG,AB #### IX,AB #### IX,0.9790083579233566,True,1.0,1,MAB#####X,0.0,False,0.5,0,easyocr,AB #### IX,1.0,1
+IMG_5946.JPG,G #### PE,G #### PE,0.9991521818356732,True,1.0,1,,0.0,False,0.0,0,easyocr,G #### PE,1.0,1
+IMG_5957.JPG,K #### UG,K #### UC,0.6745862680487806,True,0.8888888888888888,0,K ###,0.265,True,0.5555555555555556,0,easyocr,K #### UC,0.8888888888888888,0
+IMG_5958.JPG,K #### UG,K #### UG,0.9422572771821335,True,1.0,1,,0.0,False,0.0,0,easyocr,K #### UG,1.0,1
+IMG_5961.JPG,AA #### EB,AA #### EB,0.31213858053491256,True,1.0,1,,0.0,False,0.0,0,easyocr,AA #### EB,1.0,1
+IMG_5964.JPG,AA #### EB,AA #### EB,0.918998594815694,True,1.0,1,,0.0,False,0.0,0,easyocr,AA #### EB,1.0,1
+IMG_5974.JPG,AB #### PU,AB #### PU,0.9928229893921715,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### PU,1.0,1
+IMG_5989.JPG,G #### PE,##Z#,0.4526676535606384,False,0.2222222222222222,0,,0.0,False,0.0,0,easyocr+sub,BB # I,0.1111111111111111,0
+IMG_5991.JPG,G #### PE,##Z#,0.07250887900590897,False,0.2222222222222222,0,,0.0,False,0.0,0,easyocr+sub,BB # I,0.1111111111111111,0
+IMG_6077.JPG,B #### KFG,B #### KFG,0.6222903869622156,True,1.0,1,,0.0,False,0.0,0,easyocr,B #### KFG,1.0,1
+IMG_6081.JPG,AB #### IZ,AB #### IZ,0.958885291128918,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### IZ,1.0,1
+IMG_6091.JPG,AB #### FP,AB ####,0.9383401304579012,True,0.7,0,,0.0,False,0.0,0,easyocr,AB ####,0.7,0
+IMG_6113.JPG,AB #### XB,AB #### XB,0.9492491303290581,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### XB,1.0,1
+IMG_6137.JPG,AB #### XB,B ### HQL,0.7799292145018294,True,0.3,0,B###HQL,0.0,False,0.2,0,easyocr,B ### HQL,0.3,0
+IMG_6144.JPG,AB #### PZ,AB #### PZ,0.8102434071151997,True,1.0,1,AB####PZ,0.0,False,0.8,0,easyocr,AB #### PZ,1.0,1
+IMG_6167.JPG,B #### KFG,FB #### KFG,0.28534056229008775,True,0.9,0,,0.0,False,0.0,0,easyocr,FB #### KFG,0.9,0
+IMG_6180.JPG,AB #### XT,AB #### XT,0.21515348838720486,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### XT,1.0,1
+IMG_6189.JPG,AB #### XT,AB ### XT,0.9355299139774091,True,0.8,0,,0.0,False,0.0,0,easyocr,AB ### XT,0.8,0
+IMG_6192.JPG,AB #### XT,AB #### XT,0.7729048624768612,True,0.9,0,TC,0.0,False,0.0,0,easyocr,AB #### XT,0.9,0
+IMG_6194.JPG,AB #### XT,AB #### XT,0.8350569522990735,True,1.0,1,,0.0,False,0.0,0,easyocr,AB #### XT,1.0,1
+IMG_6195.JPG,AB #### XT,AB ###L XT,0.7219981227170701,False,0.9,0,,0.0,False,0.0,0,easyocr+sub,AB #### XT,1.0,1

@@ -1,0 +1,208 @@
+# ANPR System Configuration — MIPA UGM Parking Lot
+# Single source of truth. Edit values here; do not hardcode in modules.
+
+paths:
+  base_dir: "."
+  models_dir: "models"
+  uploads_dir: "uploads"
+  results_dir: "results"
+  annotated_dir: "results/annotated"
+  crops_dir: "results/crops"
+  logs_dir: "results/logs"
+  verification_log_csv: "results/logs/verification_log.csv"
+
+database:
+  engine: "sqlite"
+  path: "anpr_mipa.db"
+
+flask:
+  secret_key_env: "FLASK_SECRET_KEY"
+  debug_env: "FLASK_DEBUG"
+  port_env: "FLASK_PORT"
+  default_port: 5001
+  max_content_length_mb: 50
+  admin_password_env: "ANPR_ADMIN_PASSWORD"
+  default_admin_password: "mipa-admin"
+
+input:
+  allowed_image_extensions: [".jpg", ".jpeg", ".png"]
+  allowed_video_extensions: [".mp4", ".avi"]
+  min_image_width: 640
+  min_image_height: 480
+  max_video_duration_sec: 30
+  keyframe_fps: 1.0
+
+preprocessing:
+  # YOLOv8 inference size. MUST match the training imgsz (640) — the models
+  # are trained at 640, and empirically detection is far better at 640 than
+  # 1280 (e.g. YOLOv8n: 0/30 vs 4/30 detection failures on the test set).
+  # The earlier 1280 setting assumed "higher res = better recall" but in fact
+  # a 2× train/inference resolution mismatch HURT small/far-plate detection.
+  # OCR crop quality is unaffected: crops are always taken from the full-res
+  # original image, not this letterboxed copy.
+  input_size: [640, 640]
+  clahe_clip_limit: 2.0
+  clahe_tile_grid: [8, 8]
+  blur_laplacian_threshold: 100.0
+  wiener_noise_var: 0.01
+  enable_clahe: false
+  enable_wiener: false
+
+detection:
+  default_model_variant: "yolov8s"
+  model_variants:
+    yolov8n: "best_yolov8n.pt"
+    yolov8s: "best_yolov8s.pt"
+    yolov8m: "best_yolov8m.pt"
+  # Dropped from spec's 0.5 → 0.30 to recover real plates that detect at
+  # 0.35–0.49 on dim/angled phone photos. Safe because the aspect_ratio
+  # (1.5–6.0) and min_bbox_area (1000) gates downstream are doing the real
+  # quality filtering — non-plate proposals don't survive those even at
+  # very low YOLO confidence.
+  confidence_threshold: 0.30
+  nms_iou_threshold: 0.45
+  # Lowered 1.5 → 1.0: framed Indonesian plates (with dealer strip / mounting)
+  # detect at aspect ~1.2-1.4, and 2-row motorcycle plates are near-square.
+  # The old 1.5 floor silently discarded high-confidence real plates
+  # (e.g. IMG_6091 "AB 1812 FP" at conf 0.92, aspect 1.23). A plate is never
+  # taller than wide, so 1.0 is the principled floor; conf (0.30), min_area
+  # (1000), and downstream OCR validation reject non-plate boxes.
+  plate_aspect_ratio_min: 1.0
+  plate_aspect_ratio_max: 6.0
+  min_bbox_area_px: 1000
+
+cropping:
+  crop_expand_ratio: 0.15
+  deskew_max_angle_deg: 15.0
+  median_kernel_size: 3
+  unsharp_radius: 1
+  unsharp_percent: 150
+  unsharp_threshold: 3
+
+ocr:
+  easyocr_languages: ["en"]
+  easyocr_gpu: false
+  tesseract_config: "--oem 1 --psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  plate_regex_car: "^[A-Z]{1,2}\\s\\d{1,4}\\s[A-Z]{1,3}$"
+  plate_regex_motorcycle: "^[A-Z]{1,2}\\s\\d{1,4}$"
+
+  # Keep only OCR detections whose text-height is at least this fraction of
+  # the tallest detection in the crop. Drops dealer ads, year stickers,
+  # and other small text below the main plate row.
+  min_text_height_ratio: 0.6
+
+  # Each character maps to a LIST of plausible substitutions. The
+  # validator generates 1- and 2-substitution variants and returns the
+  # first that matches the Indonesian plate regex.
+  char_substitutions:
+    "0": ["O", "Q", "D"]
+    "1": ["I", "L"]
+    "2": ["Z"]
+    "4": ["A", "L", "H"]
+    "5": ["S"]
+    "6": ["G"]
+    "7": ["T"]
+    "8": ["B"]
+    "9": ["G"]
+    "A": ["4"]
+    "B": ["8"]
+    "D": ["0", "O"]
+    "G": ["6", "9"]
+    "H": ["4"]
+    "I": ["1"]
+    "L": ["4", "1"]   # 4 first — more plausible in plate fonts (cross-bar misread)
+    "O": ["0", "Q", "D"]
+    "Q": ["0", "O"]
+    "S": ["5"]
+    "T": ["7"]
+    "Z": ["2"]
+
+verification:
+  # Default OCR confidence gate. Applies to FUZZY matches and to NO_MATCH
+  # cases. Below this, status forced to UNCERTAIN (per spec).
+  ocr_confidence_threshold: 0.70
+
+  # Relaxed gate that ONLY applies when the DB lookup is an EXACT match.
+  # The rationale: an exact match means the OCR text already corresponds
+  # to an authoritative DB record, which is independent evidence that the
+  # read is correct. We trust that signal and accept lower per-character
+  # OCR confidence — while still preserving the strict gate for ambiguous
+  # (FUZZY) and unmatched (NONE) reads where false positives are most
+  # damaging. Spec deviation; documented in the thesis under "Design
+  # Refinement Based on Empirical Evaluation."
+  ocr_confidence_threshold_exact: 0.50
+
+  fuzzy_match_max_distance: 2
+  fuzzy_match_flag: "FUZZY_MATCH - verify manually"
+  low_conf_exact_flag: "LOW_OCR_CONFIDENCE_EXACT - relaxed gate (matched in DB)"
+
+# Indonesian regional codes (1–2 alpha prefix). Used by text_normalizer.
+region_codes:
+  - A
+  - AA
+  - AB
+  - AD
+  - AE
+  - AG
+  - B
+  - BA
+  - BB
+  - BD
+  - BE
+  - BG
+  - BH
+  - BK
+  - BL
+  - BM
+  - BN
+  - BP
+  - D
+  - DA
+  - DB
+  - DC
+  - DD
+  - DE
+  - DG
+  - DH
+  - DK
+  - DL
+  - DM
+  - DN
+  - DR
+  - DS
+  - DT
+  - E
+  - EA
+  - EB
+  - ED
+  - F
+  - G
+  - H
+  - K
+  - KB
+  - KH
+  - KT
+  - KU
+  - L
+  - M
+  - N
+  - P
+  - R
+  - S
+  - T
+  - W
+  - Z
+
+ui:
+  bbox_colors:
+    AUTHORIZED: [0, 255, 0]
+    UNAUTHORIZED: [0, 0, 255]
+    UNCERTAIN: [0, 165, 255]
+    OCR_FAILED: [128, 128, 128]
+    NO_PLATE_FOUND: [128, 128, 128]
+  bbox_thickness: 3
+  font_scale: 0.8
+  font_thickness: 2
+
+timing:
+  target_processing_time_ms: 5000

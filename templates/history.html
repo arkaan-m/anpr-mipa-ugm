@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}History — ANPR MIPA UGM{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>Transaction history</h1>
+  <p class="muted">Showing up to 500 rows. CSV export includes everything.</p>
+  <div>
+    <a class="btn" href="{{ url_for('admin') }}">← Back to admin</a>
+    <a class="btn primary" href="{{ url_for('admin_history_csv') }}">Download CSV</a>
+  </div>
+</section>
+
+<section class="card">
+  <form method="get" class="form-row">
+    <label>From <input type="date" name="start" value="{{ start }}"></label>
+    <label>To <input type="date" name="end" value="{{ end }}"></label>
+    <label>Status
+      <select name="status">
+        <option value="">(any)</option>
+        {% for s in statuses %}
+          <option value="{{ s }}" {% if status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <button type="submit" class="btn">Filter</button>
+  </form>
+</section>
+
+<section class="card">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>Time</th><th>File</th><th>Raw</th><th>Normalized</th>
+        <th>Engine</th><th>OCR</th><th>Det</th>
+        <th>Status</th><th>Match</th><th>ms</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr class="row-{{ r.verification_status }}">
+        <td>{{ r.timestamp }}</td>
+        <td>{{ r.original_filename }}</td>
+        <td>{{ r.detected_plate_raw or '' }}</td>
+        <td><code>{{ r.normalized_plate or '' }}</code></td>
+        <td>{{ r.ocr_engine_used or '' }}</td>
+        <td>{{ '%.0f' % ((r.ocr_confidence or 0) * 100) }}%</td>
+        <td>{{ '%.0f' % ((r.detection_confidence or 0) * 100) }}%</td>
+        <td><span class="badge badge-{{ r.verification_status }}">{{ r.verification_status }}</span></td>
+        <td>{% if r.matched_plate %}<code>{{ r.matched_plate }}</code> ({{ r.match_type }}){% else %}—{% endif %}</td>
+        <td>{{ '%.0f' % (r.processing_time_ms or 0) }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="10" class="muted">No rows match.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

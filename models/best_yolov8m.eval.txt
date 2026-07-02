@@ -1,0 +1,20 @@
+═══════════════════════════════════════════════════════════════
+  Detector evaluation summary
+═══════════════════════════════════════════════════════════════
+  model       : models/best_yolov8m.pt
+  dataset     : data/processed/mipa_v1/data.yaml
+  split       : val
+  imgsz       : 640
+  conf gate   : 0.001
+
+  ── Detection quality ──
+  mAP@0.50              : 0.7537
+  mAP@0.50:0.95         : 0.5306
+  precision (P)         : 0.9029
+  recall (R)            : 0.6949
+
+  ── Per-image inference time (n=43 sample) ──
+  mean                  :  279.7 ms
+  median                :  258.3 ms
+  p90                   :  337.7 ms
+═══════════════════════════════════════════════════════════════

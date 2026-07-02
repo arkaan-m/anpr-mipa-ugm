@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Upload — ANPR MIPA UGM{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>License Plate Verification</h1>
+  <p class="muted">
+    Upload a photo or short clip from the gate camera. The system will detect the plate,
+    read it with EasyOCR + Tesseract, and verify it against the authorized vehicle database.
+  </p>
+</section>
+
+<section class="card">
+  <h2>Single image / video</h2>
+  <form action="{{ url_for('process_single') }}" method="post" enctype="multipart/form-data">
+    <label class="dropzone" for="single-file">
+      <span class="dropzone-text">Click to choose a file<br><small>JPEG / PNG / MP4 / AVI · ≤50 MB · videos ≤30 s</small></span>
+      <input id="single-file" type="file" name="file" accept=".jpg,.jpeg,.png,.mp4,.avi" required>
+    </label>
+    <div class="form-row">
+      <label for="variant-single">YOLOv8 variant</label>
+      <select id="variant-single" name="variant">
+        {% for v in variants %}
+          <option value="{{ v }}" {% if v == default_variant %}selected{% endif %}>{{ v }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn primary">Process</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Batch upload</h2>
+  <form action="{{ url_for('process_batch_route') }}" method="post" enctype="multipart/form-data">
+    <label class="dropzone" for="batch-files">
+      <span class="dropzone-text">Click to choose multiple files<br><small>Same formats; all will be processed sequentially</small></span>
+      <input id="batch-files" type="file" name="files" accept=".jpg,.jpeg,.png,.mp4,.avi" multiple required>
+    </label>
+    <div class="form-row">
+      <label for="variant-batch">YOLOv8 variant</label>
+      <select id="variant-batch" name="variant">
+        {% for v in variants %}
+          <option value="{{ v }}" {% if v == default_variant %}selected{% endif %}>{{ v }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn primary">Run batch</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Audit log</h2>
+  <p class="muted">Every transaction is appended to the verification log. Download a CSV copy here.</p>
+  <a class="btn" href="{{ url_for('download_log') }}">Download verification_log.csv</a>
+</section>
+{% endblock %}

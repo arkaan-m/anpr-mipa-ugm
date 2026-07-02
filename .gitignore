@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+
+# Project-specific
+models/*.pt
+models/*.onnx
+models/single_stage_backup/
+models/two_stage_untuned_backup/
+uploads/
+results/annotated/*
+results/crops/*
+results/logs/*.csv
+data/raw/
+data/processed/
+data/custom/
+data/_extracted/
+
+# Keep directory structure
+!models/.gitkeep
+!uploads/.gitkeep
+!results/annotated/.gitkeep
+!results/crops/.gitkeep
+!results/logs/.gitkeep
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/custom/.gitkeep
+
+# Database — regenerable via init_db.py, and contains an owner name
+*.db
+
+# Real plate-bearing CSVs (PII) — anonymized twins are committed in data/anonymized/
+data/ocr_gt.csv
+data/system_gt.csv
+data/ocr_eval_results.csv
+data/system_eval_results.csv
+
+# Large archives and loose weights in project root
+*.zip
+*.tar.gz
+*.corrupted
+yolov5su.pt
+yolov8n.pt
+yolov8s.pt
+yolov8m.pt
+
+# Misc generated files
+Figure_IX.png
+handoff.md
+runs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+

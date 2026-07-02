@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}ANPR — MIPA UGM{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
+</head>
+<body>
+  <nav class="topbar">
+    <div class="wrap">
+      <a class="brand" href="{{ url_for('index') }}">ANPR · MIPA UGM</a>
+      <div class="navlinks">
+        <a href="{{ url_for('index') }}">Upload</a>
+        <a href="{{ url_for('admin') }}">Admin</a>
+      </div>
+    </div>
+  </nav>
+
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% if msgs %}
+    <div class="wrap flashes">
+      {% for cat, msg in msgs %}
+        <div class="flash flash-{{ cat }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endwith %}
+
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span>Automatic License Plate Verification — Universitas Gadjah Mada · FMIPA</span>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/upload.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Result — ANPR MIPA UGM{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>{% if batch %}Batch result ({{ results|length }} frames){% else %}Verification result{% endif %}</h1>
+  <p class="muted">Model: <code>{{ variant }}</code></p>
+  <a class="btn" href="{{ url_for('index') }}">← Upload another</a>
+</section>
+
+{% for r in results %}
+<section class="card result-card status-{{ r.status }}">
+  <header class="result-head">
+    <div>
+      <div class="filename">{{ r.source }}{% if r.is_video_frame %} · frame {{ r.frame_index }}{% endif %}</div>
+      <div class="muted small">processed in {{ r.processing_time_ms }} ms · category: {{ r.error_category }}</div>
+    </div>
+    <div class="badge badge-{{ r.status }}">{{ r.status }}</div>
+  </header>
+
+  {% if r.annotated_url %}
+    <img class="annotated" src="{{ r.annotated_url }}" alt="annotated">
+  {% endif %}
+
+  {% if r.plates %}
+    {% for p in r.plates %}
+    <div class="plate">
+      <div class="plate-text">{{ p.normalized_text or p.raw_text or '—' }}</div>
+      <div class="plate-meta">
+        <span class="badge badge-{{ p.status }}">{{ p.status }}</span>
+        <span class="muted">engine: {{ p.chosen_engine or 'n/a' }}</span>
+        <span class="muted">OCR conf: {{ '%.1f' % (p.ocr_confidence * 100) }}%</span>
+        <span class="muted">det conf: {{ '%.1f' % (p.detection_confidence * 100) }}%</span>
+        {% if p.matched_plate %}
+          <span class="muted">matched: <code>{{ p.matched_plate }}</code> ({{ p.match_type }})</span>
+        {% endif %}
+        {% if p.flag %}
+          <span class="flag">⚠ {{ p.flag }}</span>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div class="plate">
+      <div class="plate-text">—</div>
+      <div class="plate-meta">
+        <span class="muted">No plate detected{% if r.error_message %}: {{ r.error_message }}{% endif %}</span>
+      </div>
+    </div>
+  {% endif %}
+</section>
+{% endfor %}
+{% endblock %}
