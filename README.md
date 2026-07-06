@@ -13,10 +13,10 @@ Users photograph a vehicle, upload via a Flask web interface, and the system ret
 
 | Resource | URL |
 |----------|-----|
-| **Dataset (MIPA + public)** | [Google Drive — ANPR_MIPA_UGM/datasets/](*FILL_IN_DRIVE_LINK*) |
-| **Trained model weights** | [Google Drive — ANPR_MIPA_UGM/models/](*FILL_IN_DRIVE_LINK*) |
-| **Thesis draft (proposal + results)** | [Google Drive — ANPR_MIPA_UGM/docs/](*FILL_IN_DRIVE_LINK*) |
-| **This repository** | [github.com/YOUR_USERNAME/anpr-mipa-ugm](*FILL_IN_GITHUB_LINK*) |
+| **Dataset** (MIPA + public) | [Google Drive](https://drive.google.com/drive/folders/10fTS5nrzRlGEuTyqDIWOdIfAYEpqWOUa?usp=sharing) |
+| **Trained model weights** | [Google Drive](https://drive.google.com/drive/folders/1md8oF6nyPzgPM2tRigCSzIP15GSC3Llq?usp=sharing) |
+| **Thesis draft** | [Google Docs](https://docs.google.com/document/d/14DNeFqfgqNXbmCjbilEyJsR_csOjCJjtWgvVcYVWYfU/edit?usp=sharing) |
+| **This repository** | [github.com/arkaan-m/anpr-mipa-ugm](https://github.com/arkaan-m/anpr-mipa-ugm) |
 
 ---
 
@@ -111,7 +111,7 @@ Detection model: **YOLOv8s**, two-stage transfer learning (COCO → public Indon
 brew install tesseract
 
 # Clone and install Python dependencies
-git clone https://github.com/YOUR_USERNAME/anpr-mipa-ugm.git
+git clone https://github.com/arkaan-m/anpr-mipa-ugm.git
 cd anpr-mipa-ugm
 python -m venv venv
 venv/bin/pip install -r requirements.txt
